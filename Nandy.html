@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 🎂</title>
+
+<!-- 🎬 Cinematic Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Allura', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    color: white;
+    background: black;
+}
+
+/* 🌌 Stars */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    animation: moveStars 80s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes moveStars {
+    from { transform: translate(0,0); }
+    to { transform: translate(-600px,-600px); }
+}
+
+.container {
+    max-width: 700px;
+    z-index: 1;
+}
+
+h1 {
+    font-family: 'Allura', cursive;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+button {
+    padding: 14px 34px;
+    font-size: 15px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 18px;
+    transition: 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    transform: scale(1.06);
+}
+
+#nextBtn {
+    background: white;
+    color: black;
+}
+
+.buttons {
+    margin-top: 50px;
+}
+
+.yesBtn {
+    background: #ff4d6d;
+    color: white;
+}
+
+.noBtn {
+    background: #444;
+    color: white;
+    position: absolute;
+}
+
+#message {
+    margin-top: 30px;
+    font-size: 1.2rem;
+}
+
+/* 💖 Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1 id="text"></h1>
+    <button id="nextBtn"></button>
+    <div class="buttons" id="optionBox"></div>
+    <div id="message"></div>
+</div>
+
+<script>
+const text = document.getElementById("text");
+const btn = document.getElementById("nextBtn");
+const optionBox = document.getElementById("optionBox");
+const message = document.getElementById("message");
+
+let step = 0;
+
+const steps = [
+    {
+        t: "Hey birthday girl 🎂…<br>Listen ! 👀",
+        b: "Hmm ?"
+    },
+    {
+        t: "I was thinking what to gift you…<br>but edhu kuduthalum veetla 1008 kelvi kepanga 😂<br>so I had to be smart 😌",
+        b: "Yes 😄"
+    },
+    {
+        t: "So I made this instead 😌<br>Because honestly…",
+        b: "Tell me"
+    },
+    {
+        t: "Talking to you became my favorite part of the day 💖<br>And I don’t think you realize how special you are",
+        b: "Hmm 👀"
+    },
+    {
+        t: "okay wait..this is not a lie..<br>na heart la irundhu apdiye..trueeeee ah feel panni dha solra 😌",
+        b: "Continue 😒"
+    },
+    {
+        t: "Do you think… 👀",
+        b: "I think ?"
+    },
+    {
+        t: "Maybe this is the start of a new kaaviya kadhai… enna solreenga ? 😌",
+        b: null
+    }
+];
+
+loadStep();
+
+btn.onclick = () => {
+    step++;
+    loadStep();
+};
+
+function loadStep() {
+    text.innerHTML = steps[step].t;
+
+    if (steps[step].b) {
+        btn.style.display = "inline-block";
+        btn.innerText = steps[step].b;
+    } else {
+        btn.style.display = "none";
+        showOptions();
+    }
+}
+
+function showOptions() {
+    optionBox.innerHTML = "";
+
+    const yes = document.createElement("button");
+    yes.innerText = "Yes 😌";
+    yes.className = "yesBtn";
+
+    const no = document.createElement("button");
+    no.innerText = "I’ll think about it 😂";
+    no.className = "noBtn";
+
+    optionBox.appendChild(yes);
+    document.body.appendChild(no);
+
+    // 💖 YES CLICK
+    yes.onclick = () => {
+        document.body.innerHTML = "";
+        document.body.style.background = "linear-gradient(to right, #ff758c, #ff7eb3)";
+
+        const yay = document.createElement("h1");
+        yay.innerHTML = "haha..So it begins… 💖";
+        yay.style.fontFamily = "'Allura', cursive";
+        yay.style.fontSize = "3.21rem";
+        yay.style.color = "white";
+        document.body.appendChild(yay);
+
+        for (let i = 0; i < 80; i++) {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "💖";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (20 + Math.random() * 30) + "px";
+            heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+        }
+    };
+
+   // 😂 SMART RUNNING BUTTON (PRO VERSION)
+let attempts = 0;
+
+const captions = [
+    
+   "Just click yes 👀"
+];
+
+function moveButton() {
+    no.style.position = "absolute";
+    no.style.left = Math.random() * (window.innerWidth - 120) + "px";
+    no.style.top = Math.random() * (window.innerHeight - 60) + "px";
+}
+
+// 🧠 Detect cursor proximity
+document.addEventListener("mousemove", (e) => {
+    if (attempts >= 5) return;
+
+    const rect = no.getBoundingClientRect();
+
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // 👇 Change this value to control sensitivity
+    if (distance < 120) {
+        moveButton();
+        message.innerHTML = captions[attempts % captions.length];
+    }
+});
+
+// Click → increase attempts
+no.addEventListener("click", (e) => {
+    if (attempts < 5) {
+        e.preventDefault();
+        attempts++;
+        moveButton();
+        message.innerHTML = captions[attempts % captions.length];
+    } else {
+        message.innerHTML = "Haha… I knew you’d try this 😄<br>But I don’t think you can say no anyway 😌";
+    }
+});
+}
+</script>
+
+</body>
+</html>
