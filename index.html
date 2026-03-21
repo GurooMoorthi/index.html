@@ -20,6 +20,27 @@ body {
     color: white;
     background: black;
 }
+    <body>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <h1>For You ❤️</h1>
+    <p>Click anywhere to start the music 🎶</p>
+  </div>
+
+  <script>
+    const music = document.getElementById("bg-music");
+
+    document.addEventListener("click", () => {
+      music.play();
+    }, { once: true });
+  </script>
+
+</body>
 
 /* 🌌 Stars */
 body::before {
